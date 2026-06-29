@@ -9,6 +9,7 @@ varying vec3 v_vNormal;
 
 uniform mat4 u_lightViewMatNear;
 uniform mat4 u_lightProjMatNear;
+uniform float u_fNormative;
 
 varying float v_LightDistanceNear;
 varying vec2 v_ShadowTexcoordNear;
@@ -33,12 +34,16 @@ void main()
     
     v_LightDistanceNear = screenSpace.z / screenSpace.w;
     v_ShadowTexcoordNear = ((screenSpace.xy / screenSpace.w) * 0.5) + 0.5;
-	v_ShadowTexcoordNear.y = 1.0 - v_ShadowTexcoordNear.y;
 	
     cameraSpace = u_lightViewMatFar * worldSpace;
     screenSpace = u_lightProjMatFar * cameraSpace;
     
     v_LightDistanceFar = screenSpace.z / screenSpace.w;
     v_ShadowTexcoordFar = ((screenSpace.xy / screenSpace.w) * 0.5) + 0.5;
-	v_ShadowTexcoordFar.y = 1.0 - v_ShadowTexcoordFar.y;
+    
+    if (u_fNormative >= 0.5)
+    {
+	    v_ShadowTexcoordNear.y = 1.0 - v_ShadowTexcoordNear.y;
+	    v_ShadowTexcoordFar.y  = 1.0 - v_ShadowTexcoordFar.y;
+    }
 }

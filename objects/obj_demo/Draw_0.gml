@@ -6,6 +6,7 @@ gpu_set_cullmode(cull_counterclockwise);
 gpu_set_texrepeat(true);
 gpu_set_texfilter(false);
 shader_set(shd_demo_3d);
+shader_set_uniform_f(shader_get_uniform(shd_demo_3d, "u_fNormative"), DDD_NORMATIVE);
 
 texture_set_stage(shader_get_sampler_index(shd_demo_3d, "samp_shadowmap_near"), surface_get_texture_depth(surf_shadowmap_near));
 shader_set_uniform_f_array(shader_get_uniform(shd_demo_3d, "u_lightViewMatNear"), light_matrices_near.view_matrix);
