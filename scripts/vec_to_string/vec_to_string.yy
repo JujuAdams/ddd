@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"vec_to_string",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"vec_to_string",
+  "parent":{
+    "name":"Debug",
+    "path":"folders/Debug.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

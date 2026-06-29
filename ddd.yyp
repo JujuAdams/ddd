@@ -15,6 +15,7 @@
     {"$GMFolder":"","%Name":"Matrix Builders","folderPath":"folders/DDD/Matrix Builders.yy","name":"Matrix Builders","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Number Theory","folderPath":"folders/DDD/Number Theory.yy","name":"Number Theory","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Demo stuff","folderPath":"folders/Demo stuff.yy","name":"Demo stuff","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Debug","folderPath":"folders/Debug.yy","name":"Debug","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
@@ -66,6 +67,8 @@
     {"id":{"name":"ddd_vec4","path":"scripts/ddd_vec4/ddd_vec4.yy",},},
     {"id":{"name":"ddd_world_to_frustrum","path":"scripts/ddd_world_to_frustrum/ddd_world_to_frustrum.yy",},},
     {"id":{"name":"ddd_world_to_screen","path":"scripts/ddd_world_to_screen/ddd_world_to_screen.yy",},},
+    {"id":{"name":"matrix_to_string","path":"scripts/matrix_to_string/matrix_to_string.yy",},},
+    {"id":{"name":"vec_to_string","path":"scripts/vec_to_string/vec_to_string.yy",},},
     {"id":{"name":"shd_demo_3d","path":"shaders/shd_demo_3d/shd_demo_3d.yy",},},
     {"id":{"name":"shd_demo_shadowmap","path":"shaders/shd_demo_shadowmap/shd_demo_shadowmap.yy",},},
     {"id":{"name":"spr_demo_floor","path":"sprites/spr_demo_floor/spr_demo_floor.yy",},},
