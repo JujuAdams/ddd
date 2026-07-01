@@ -15,11 +15,6 @@ uniform sampler2D samp_shadowmap_far;
 varying float v_LightDistanceFar;
 varying vec2 v_ShadowTexcoordFar;
 
-float CorrectShadowMapDepth(float depth)
-{
-    return 2.0*depth - 1.0 + u_fNormativeProjectionFrag*(1.0 - depth);
-}
-
 void main()
 {
     gl_FragColor = v_vColour * texture2D(gm_BaseTexture, v_vTexcoord);
@@ -38,25 +33,30 @@ void main()
     
     
     
-	if (v_ShadowTexcoordNear.x >= 0.0 && v_ShadowTexcoordNear.x <= 1.0 && v_ShadowTexcoordNear.y >= 0.0 && v_ShadowTexcoordNear.y <= 1.0) {
+	if (v_ShadowTexcoordNear.x >= 0.0 && v_ShadowTexcoordNear.x <= 1.0 && v_ShadowTexcoordNear.y >= 0.0 && v_ShadowTexcoordNear.y <= 1.0)
+    {
+        #if defined(_YY_HLSL11_) || defined(_YY_PSSL_)
+		    float shadowmap_value = texture2D(samp_shadowmap_near, v_ShadowTexcoordNear).r;
+        #else
+		    float shadowmap_value = 2.0*texture2D(samp_shadowmap_near, v_ShadowTexcoordNear).r - 1.0;
+        #endif
         
-        
-        
-		float shadowmap_value = CorrectShadowMapDepth(texture2D(samp_shadowmap_near, v_ShadowTexcoordNear).r);
-	    if (v_LightDistanceNear > shadowmap_value + shadow_bias) {
+	    if (v_LightDistanceNear > shadowmap_value + shadow_bias)
+        {
 	        light = ambient;
 	    }
-        
-        
-        
 	}
 	
-    
-    
-    
-	else if (v_ShadowTexcoordFar.x >= 0.0 && v_ShadowTexcoordFar.x <= 1.0 && v_ShadowTexcoordFar.y >= 0.0 && v_ShadowTexcoordFar.y <= 1.0) {
-		float shadowmap_value = CorrectShadowMapDepth(texture2D(samp_shadowmap_far, v_ShadowTexcoordFar).r);
-	    if (v_LightDistanceFar > shadowmap_value + shadow_bias) {
+	else if (v_ShadowTexcoordFar.x >= 0.0 && v_ShadowTexcoordFar.x <= 1.0 && v_ShadowTexcoordFar.y >= 0.0 && v_ShadowTexcoordFar.y <= 1.0)
+    {
+        #if defined(_YY_HLSL11_) || defined(_YY_PSSL_)
+		    float shadowmap_value = texture2D(samp_shadowmap_far, v_ShadowTexcoordFar).r;
+        #else
+		    float shadowmap_value = 2.0*texture2D(samp_shadowmap_far, v_ShadowTexcoordFar).r - 1.0;
+        #endif
+        
+	    if (v_LightDistanceFar > shadowmap_value + shadow_bias)
+        {
 	        light = ambient;
 	    }
 	}

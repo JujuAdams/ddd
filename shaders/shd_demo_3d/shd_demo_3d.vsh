@@ -26,7 +26,11 @@ varying vec2 v_ShadowTexcoordFar;
 vec2 CorrectShadowMapY(vec2 texcoord)
 {
     texcoord = 0.5*texcoord + 0.5;
-    texcoord.y += u_fNormativeProjectionVert*(1.0 - 2.0*texcoord.y);
+    
+    #if defined(_YY_HLSL11_) || defined(_YY_PSSL_)
+        texcoord.y = 1.0 - texcoord.y;
+    #endif
+    
     return texcoord;
 }
 
