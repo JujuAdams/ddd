@@ -7,7 +7,7 @@ function ddd_matrix_set_projection(matrix)
 {
     static static_matrix = matrix_build_identity();
     
-    if (DDD_NORMATIVE)
+    if (DDD_NORMATIVE_PROJECTION)
     {
         matrix_set(matrix_projection, matrix);
     }

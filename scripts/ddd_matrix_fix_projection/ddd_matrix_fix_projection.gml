@@ -19,7 +19,7 @@ function ddd_matrix_fix_projection(matrix, result_matrix = undefined)
         array_copy(result_matrix, 0, matrix, 0, 16);
     }
     
-    if (not DDD_NORMATIVE)
+    if (not DDD_NORMATIVE_PROJECTION)
     {
         result_matrix[@  1] = -result_matrix[ 1];
         result_matrix[@  5] = -result_matrix[ 5];

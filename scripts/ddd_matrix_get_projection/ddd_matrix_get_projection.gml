@@ -9,7 +9,7 @@ function ddd_matrix_get_projection(result_matrix = undefined)
 {
     if (result_matrix == undefined)
     {
-        if (DDD_NORMATIVE)
+        if (DDD_NORMATIVE_PROJECTION)
         {
             return matrix_get(matrix_projection);
         }
@@ -21,7 +21,7 @@ function ddd_matrix_get_projection(result_matrix = undefined)
     }
     else
     {
-        if (DDD_NORMATIVE)
+        if (DDD_NORMATIVE_PROJECTION)
         {
             matrix_get(matrix_projection, result_matrix);
             return result_matrix;

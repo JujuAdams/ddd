@@ -8,7 +8,7 @@
 
 function ddd_matrix_fix_projection_in_place(matrix)
 {
-    if (not DDD_NORMATIVE)
+    if (not DDD_NORMATIVE_PROJECTION)
     {
         matrix[@  1] = -matrix[ 1];
         matrix[@  5] = -matrix[ 5];
