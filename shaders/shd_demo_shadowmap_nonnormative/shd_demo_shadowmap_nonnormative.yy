@@ -1,7 +1,7 @@
 {
   "$GMShader":"",
-  "%Name":"shd_demo_shadowmap",
-  "name":"shd_demo_shadowmap",
+  "%Name":"shd_demo_shadowmap_nonnormative",
+  "name":"shd_demo_shadowmap_nonnormative",
   "parent":{
     "name":"Demo stuff",
     "path":"folders/Demo stuff.yy",

@@ -28,9 +28,11 @@ surface_set_target(surf_shadowmap_near);
 	matrix_set(matrix_view, light_matrices_near.view_matrix);
 	matrix_set(matrix_projection, light_matrices_near.proj_matrix);
 	
+    shader_set(DDD_NORMATIVE_DEPTH_MAP? shd_demo_shadowmap_normative : shd_demo_shadowmap_nonnormative);
 	array_foreach(things, function(thing) {
 		thing.draw();
 	});
+    shader_reset();
 	
 	gpu_set_ztestenable(false);
 	gpu_set_zwriteenable(false);
@@ -51,9 +53,11 @@ surface_set_target(surf_shadowmap_far);
 	matrix_set(matrix_view, light_matrices_far.view_matrix);
 	matrix_set(matrix_projection, light_matrices_far.proj_matrix);
 
+    shader_set(DDD_NORMATIVE_DEPTH_MAP? shd_demo_shadowmap_normative : shd_demo_shadowmap_nonnormative);
 	array_foreach(things, function(thing) {
 		thing.draw();
 	});
+    shader_reset();
 	
 	gpu_set_ztestenable(false);
 	gpu_set_zwriteenable(false);
