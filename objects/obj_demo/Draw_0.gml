@@ -6,7 +6,8 @@ gpu_set_cullmode(cull_counterclockwise);
 gpu_set_texrepeat(true);
 gpu_set_texfilter(false);
 shader_set(shd_demo_3d);
-shader_set_uniform_f(shader_get_uniform(shd_demo_3d, "u_fNormativeProjection"), DDD_NORMATIVE_PROJECTION);
+shader_set_uniform_f(shader_get_uniform(shd_demo_3d, "u_fNormativeProjectionVert"), DDD_NORMATIVE_PROJECTION);
+shader_set_uniform_f(shader_get_uniform(shd_demo_3d, "u_fNormativeProjectionFrag"), DDD_NORMATIVE_PROJECTION);
 
 var texture = DDD_NORMATIVE_DEPTH_MAP? surface_get_texture_depth(surf_shadowmap_near) : surface_get_texture(surf_shadowmap_near);
 texture_set_stage(shader_get_sampler_index(shd_demo_3d, "samp_shadowmap_near"), texture);

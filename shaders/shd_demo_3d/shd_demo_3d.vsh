@@ -9,9 +9,10 @@ varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 varying vec3 v_vNormal;
 
+uniform float u_fNormativeProjectionVert;
+
 uniform mat4 u_lightViewMatNear;
 uniform mat4 u_lightProjMatNear;
-uniform float u_fNormativeProjection;
 
 varying float v_LightDistanceNear;
 varying vec2 v_ShadowTexcoordNear;
@@ -22,6 +23,13 @@ uniform mat4 u_lightProjMatFar;
 varying float v_LightDistanceFar;
 varying vec2 v_ShadowTexcoordFar;
 
+vec2 CorrectShadowMapY(vec2 texcoord)
+{
+    texcoord = 0.5*texcoord + 0.5;
+    texcoord.y += u_fNormativeProjectionVert*(1.0 - 2.0*texcoord.y);
+    return texcoord;
+}
+
 void main()
 {
     gl_Position = gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * vec4(in_Position, 1);
@@ -31,21 +39,20 @@ void main()
     v_vTexcoord = in_TextureCoord;
     
     vec4 worldSpace = gm_Matrices[MATRIX_WORLD] * vec4(in_Position, 1);
+    
+    
+    
     vec4 cameraSpace = u_lightViewMatNear * worldSpace;
     vec4 screenSpace = u_lightProjMatNear * cameraSpace;
     
     v_LightDistanceNear = screenSpace.z / screenSpace.w;
-    v_ShadowTexcoordNear = ((screenSpace.xy / screenSpace.w) * 0.5) + 0.5;
+    v_ShadowTexcoordNear = CorrectShadowMapY(screenSpace.xy / screenSpace.w);
 	
+    
+    
     cameraSpace = u_lightViewMatFar * worldSpace;
     screenSpace = u_lightProjMatFar * cameraSpace;
     
     v_LightDistanceFar = screenSpace.z / screenSpace.w;
-    v_ShadowTexcoordFar = ((screenSpace.xy / screenSpace.w) * 0.5) + 0.5;
-    
-    if (u_fNormativeProjection >= 0.5)
-    {
-	    v_ShadowTexcoordNear.y = 1.0 - v_ShadowTexcoordNear.y;
-	    v_ShadowTexcoordFar.y  = 1.0 - v_ShadowTexcoordFar.y;
-    }
+    v_ShadowTexcoordFar = CorrectShadowMapY(screenSpace.xy / screenSpace.w);
 }
