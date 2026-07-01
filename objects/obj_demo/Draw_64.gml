@@ -1,6 +1,3 @@
-draw_surface_stretched(surf_shadowmap_near, 0, 0, 256, 256);
-draw_surface_stretched(surf_shadowmap_far, 256, 0, 256, 256);
-
 // draw a red circle at the world origin
 var point = ddd_world_to_screen(0, 0, 0, undefined, view_mat, proj_mat, display_get_gui_width(), display_get_gui_height());
 
