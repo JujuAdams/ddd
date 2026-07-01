@@ -3,10 +3,6 @@
 // browser (i.e. DirectX).
 #macro DDD_NORMATIVE_PROJECTION  ((os_type == os_xboxone) || (os_type == os_xboxseriesxs) || (os_type == os_ps5) || ((os_type == os_windows) && (os_browser == browser_not_a_browser)))
 
-// Boolean value that indicates whether depth maps are normative for the current platform. Baseline
-// for this macro is the Windows export target and not running in a browser (i.e. DirectX).
-#macro DDD_NORMATIVE_DEPTH_MAP  true //(not ((os_type == os_switch) || (os_type == os_switch2)))
-
 // I doubt many people would actually use these but it's tradition to include macros for this stuff
 #macro DDD_X  0
 #macro DDD_Y  1

@@ -7,13 +7,11 @@ gpu_set_texrepeat(true);
 gpu_set_texfilter(false);
 shader_set(shd_demo_3d);
 
-var texture = DDD_NORMATIVE_DEPTH_MAP? surface_get_texture_depth(surf_shadowmap_near) : surface_get_texture(surf_shadowmap_near);
-texture_set_stage(shader_get_sampler_index(shd_demo_3d, "samp_shadowmap_near"), texture);
+texture_set_stage(shader_get_sampler_index(shd_demo_3d, "samp_shadowmap_near"), surface_get_texture_depth(surf_shadowmap_near));
 shader_set_uniform_f_array(shader_get_uniform(shd_demo_3d, "u_lightViewMatNear"), light_matrices_near.view_matrix);
 ddd_shader_set_uniform_projection_matrix(shader_get_uniform(shd_demo_3d, "u_lightProjMatNear"), light_matrices_near.proj_matrix);
 
-var texture = DDD_NORMATIVE_DEPTH_MAP? surface_get_texture_depth(surf_shadowmap_far) : surface_get_texture(surf_shadowmap_far);
-texture_set_stage(shader_get_sampler_index(shd_demo_3d, "samp_shadowmap_far"), texture);
+texture_set_stage(shader_get_sampler_index(shd_demo_3d, "samp_shadowmap_far"), surface_get_texture_depth(surf_shadowmap_far));
 shader_set_uniform_f_array(shader_get_uniform(shd_demo_3d, "u_lightViewMatFar"), light_matrices_far.view_matrix);
 ddd_shader_set_uniform_projection_matrix(shader_get_uniform(shd_demo_3d, "u_lightProjMatFar"), light_matrices_far.proj_matrix);
 
