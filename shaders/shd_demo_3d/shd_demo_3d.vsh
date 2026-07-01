@@ -25,9 +25,6 @@ vec3 CorrectShadowCoords(vec3 texcoord)
     #if defined(_YY_HLSL11_) || defined(_YY_PSSL_)
         //Flip the y-axis on normative platforms
         texcoord.y = 1.0 - texcoord.y;
-    #else
-        //Non-normative platforms need the z-axis normalizing too
-        texcoord.z = 0.5*texcoord.z + 0.5;
     #endif
     
     return texcoord;
