@@ -5,15 +5,10 @@ varying vec4 v_vColour;
 varying vec3 v_vNormal;
 
 uniform sampler2D samp_shadowmap_near;
+varying vec3 v_ShadowCoordNear;
 
-varying float v_LightDistanceNear;
-varying vec2 v_ShadowTexcoordNear;
-
-uniform float u_fNormativeProjectionFrag;
 uniform sampler2D samp_shadowmap_far;
-
-varying float v_LightDistanceFar;
-varying vec2 v_ShadowTexcoordFar;
+varying vec3 v_ShadowCoordFar;
 
 void main()
 {
@@ -30,33 +25,15 @@ void main()
 	float NdotL = dot(normalize(v_vNormal), L1);
 	vec3 light = ambient + NdotL * C1;
 	
-    
-    
-    
-	if (v_ShadowTexcoordNear.x >= 0.0 && v_ShadowTexcoordNear.x <= 1.0 && v_ShadowTexcoordNear.y >= 0.0 && v_ShadowTexcoordNear.y <= 1.0)
-    {
-        #if defined(_YY_HLSL11_) || defined(_YY_PSSL_)
-		    float shadowmap_value = texture2D(samp_shadowmap_near, v_ShadowTexcoordNear).r;
-        #else
-		    float shadowmap_value = 2.0*texture2D(samp_shadowmap_near, v_ShadowTexcoordNear).r - 1.0;
-        #endif
-        
-	    if (v_LightDistanceNear > shadowmap_value + shadow_bias)
-        {
+	if (v_ShadowCoordNear.x >= 0.0 && v_ShadowCoordNear.x <= 1.0 && v_ShadowCoordNear.y >= 0.0 && v_ShadowCoordNear.y <= 1.0) {
+        float shadowmap_value = texture2D(samp_shadowmap_near, v_ShadowCoordNear.xy).r;
+	    if (v_ShadowCoordNear.z > shadowmap_value + shadow_bias) {
 	        light = ambient;
 	    }
 	}
-	
-	else if (v_ShadowTexcoordFar.x >= 0.0 && v_ShadowTexcoordFar.x <= 1.0 && v_ShadowTexcoordFar.y >= 0.0 && v_ShadowTexcoordFar.y <= 1.0)
-    {
-        #if defined(_YY_HLSL11_) || defined(_YY_PSSL_)
-		    float shadowmap_value = texture2D(samp_shadowmap_far, v_ShadowTexcoordFar).r;
-        #else
-		    float shadowmap_value = 2.0*texture2D(samp_shadowmap_far, v_ShadowTexcoordFar).r - 1.0;
-        #endif
-        
-	    if (v_LightDistanceFar > shadowmap_value + shadow_bias)
-        {
+	else if (v_ShadowCoordFar.x >= 0.0 && v_ShadowCoordFar.x <= 1.0 && v_ShadowCoordFar.y >= 0.0 && v_ShadowCoordFar.y <= 1.0) {
+        float shadowmap_value = texture2D(samp_shadowmap_far, v_ShadowCoordFar.xy).r;
+	    if (v_ShadowCoordFar.z > shadowmap_value + shadow_bias) {
 	        light = ambient;
 	    }
 	}

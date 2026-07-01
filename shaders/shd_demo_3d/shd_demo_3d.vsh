@@ -9,26 +9,25 @@ varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 varying vec3 v_vNormal;
 
-uniform float u_fNormativeProjectionVert;
-
 uniform mat4 u_lightViewMatNear;
 uniform mat4 u_lightProjMatNear;
-
-varying float v_LightDistanceNear;
-varying vec2 v_ShadowTexcoordNear;
+varying vec3 v_ShadowCoordNear;
 
 uniform mat4 u_lightViewMatFar;
 uniform mat4 u_lightProjMatFar;
+varying vec3 v_ShadowCoordFar;
 
-varying float v_LightDistanceFar;
-varying vec2 v_ShadowTexcoordFar;
-
-vec2 CorrectShadowMapY(vec2 texcoord)
+vec3 CorrectShadowCoords(vec3 texcoord)
 {
-    texcoord = 0.5*texcoord + 0.5;
+    //Normalize x/y coordinate
+    texcoord.xy = 0.5*texcoord.xy + 0.5;
     
     #if defined(_YY_HLSL11_) || defined(_YY_PSSL_)
+        //Flip the y-axis on normative platforms
         texcoord.y = 1.0 - texcoord.y;
+    #else
+        //Non-normative platforms need the z-axis normalizing too
+        texcoord.z = 0.5*texcoord.z + 0.5;
     #endif
     
     return texcoord;
@@ -44,19 +43,11 @@ void main()
     
     vec4 worldSpace = gm_Matrices[MATRIX_WORLD] * vec4(in_Position, 1);
     
-    
-    
     vec4 cameraSpace = u_lightViewMatNear * worldSpace;
     vec4 screenSpace = u_lightProjMatNear * cameraSpace;
-    
-    v_LightDistanceNear = screenSpace.z / screenSpace.w;
-    v_ShadowTexcoordNear = CorrectShadowMapY(screenSpace.xy / screenSpace.w);
+    v_ShadowCoordNear = CorrectShadowCoords(screenSpace.xyz / screenSpace.w);
 	
-    
-    
     cameraSpace = u_lightViewMatFar * worldSpace;
     screenSpace = u_lightProjMatFar * cameraSpace;
-    
-    v_LightDistanceFar = screenSpace.z / screenSpace.w;
-    v_ShadowTexcoordFar = CorrectShadowMapY(screenSpace.xy / screenSpace.w);
+    v_ShadowCoordFar = CorrectShadowCoords(screenSpace.xyz / screenSpace.w);
 }
